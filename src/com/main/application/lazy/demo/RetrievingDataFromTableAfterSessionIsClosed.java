@@ -24,7 +24,6 @@ import com.tables.entities.InstructorDetail;
 public class RetrievingDataFromTableAfterSessionIsClosed {
 
 	public static void main(String[] args) {
-		
 		SessionFactory sessionFactory = new Configuration().
 				configure("hibernate.cfg.xml").
 				addAnnotatedClass(Instructor.class).
@@ -71,12 +70,12 @@ public class RetrievingDataFromTableAfterSessionIsClosed {
 			session = sessionFactory.getCurrentSession();
 			
 			session.beginTransaction();
-// QUERY CODE DOES NOT WORK			
+		
 			// specifying again which course we want to work with
 			int id = 15;
 			
-			Query<Course> query = session.createQuery("select c from Course c "
-					+ "where c.instructorId=:theInstructorId", Course.class);
+			Query<Course> query = session.createNativeQuery("select * from Course c "
+					+ "where c.instructor_id=:theInstructorId", Course.class);
 					 
 			query.setParameter("theInstructorId", id);
 					 
